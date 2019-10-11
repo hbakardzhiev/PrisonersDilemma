@@ -34,7 +34,4 @@ class Patch {
         //...
         return 0.0; // CHANGE THIS
     }
-    //methid for points
-    void getPoints() {
-    }
 }
