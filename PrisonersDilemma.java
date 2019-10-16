@@ -11,7 +11,10 @@
  */
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 //...
 
@@ -19,10 +22,14 @@ class PrisonersDilemma {
     //...
     private PlayingField playingField = new PlayingField();
     //private ArrayList<Patch> patches = playingField.getPatches();
-
+    //private void
+    private JFrame frame = new JFrame();
     private JSlider alphaSlider = new JSlider();
     void buildGUI() {
+
         alphaSlider.addChangeListener(playingField);
+        playingField.setPatches();
+
         SwingUtilities.invokeLater( () -> {
 //            JFrame frame = new JFrame();
 //            frame.add(new Button("Hello"));
@@ -34,10 +41,12 @@ class PrisonersDilemma {
 //            frame.repaint();
 //            frame.setSize(1200, 1200);
 //            frame.setVisible(true);
+            frame.addMouseListener(playingField);
             playingField.setLayout(new BorderLayout());
-            playingField.setSize(800, 800);
-            playingField.setVisible(true);
-            playingField.repaint();
+            frame.add(playingField);
+            frame.setSize(800,800);
+            frame.setVisible(true);
+
         } );
     }
     
