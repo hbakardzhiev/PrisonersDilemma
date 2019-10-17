@@ -11,6 +11,8 @@
  */
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-class PlayingField extends JFrame implements ChangeListener, MouseListener {
+class PlayingField extends JFrame implements ChangeListener, MouseListener, ActionListener {
     private static final int GRID_SIZE = 50;
     private Patch[][] grid = new Patch[GRID_SIZE][GRID_SIZE];
     
@@ -106,9 +108,22 @@ class PlayingField extends JFrame implements ChangeListener, MouseListener {
     }
 
     @Override
-    public void stateChanged(ChangeEvent changeEvent) {
-        double currentMeasurement = (double)changeEvent.getSource();
-        setAlpha(currentMeasurement);
+    public void stateChanged(ChangeEvent e) {
+        JSlider source = (JSlider)e.getSource();
+
+        if(!source.getValueIsAdjusting()){
+
+            if("fps".equals(source.getName())){
+
+                timer.setDelay(source.getValue());
+
+            }else if("Alpha Value".equals(source.getName())){
+
+                setAlpha(source.getValue());
+
+            }
+
+        }
     }
 
     @Override
@@ -134,5 +149,11 @@ class PlayingField extends JFrame implements ChangeListener, MouseListener {
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
 }
+
 
